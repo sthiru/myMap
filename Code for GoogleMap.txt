@@ -1,21 +1,86 @@
-function initMap(myLatLng) { 
-                    
-            
-           
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Sample Map</title>
+    <style>
+        #map
+        {
+            height: 100%;
+        }
+        html, body
+        {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+    <!--     <script type="text/javascript" src="Scripts/jquery-1.9.1.min.js"></script>
+    <script src="Scripts/GoogleAngularApi.js"></script>
+    <script src="Scripts/ng.Modules.js"></script>-->
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+    <script src="Scripts/d3.min.js"></script>
+    <script src="Scripts/jquery-2.1.4.min.js"></script>
+    <script src="Scripts/jquery.faloading.js"></script>
+    <script src="Scripts/jquery-loader.js"></script>
+    <script src="https://cdn.rawgit.com/eligrey/FileSaver.js/master/FileSaver.js"></script>
+    <script src="Scripts/Ajax.js"></script>
+</head>
+<body>
+    <div id="map">
+    </div>
+    <script>
+       
 
-           // var myLatLng = { lat: 12.8391374, lng: 77.6507869 };
 
-            var map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 4,
-                center: myLatLng
+        function initMap() {
+
+            d3.json("Data/LocationData.json", function (error, data) {
+
+                data = data.locations;
+
+                var myOptions = {
+                    zoom: 4,
+                    center: new google.maps.LatLng(12.8391374, 77.6507869),
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                }
+                map = new google.maps.Map(document.getElementById("map"), myOptions);
+
+
+                for (var i = 0; i < data.length; i++) {
+//                    var myLatLng = { lat: (data[i].latitudeE7 / 10000000), lng: (data[i].longitudeE7 / 10000000) };
+                    //                    console.log(myLatLng);
+
+                 var activity
+                    var marker = new google.maps.Marker({
+                        position: new google.maps.LatLng((data[i].latitudeE7 / 10000000), (data[i].longitudeE7 / 10000000)),
+                        map: map,
+                        title: "Fast marker"
+                    });
+
+                }
+
+
             });
 
-            var marker = new google.maps.Marker({
-                position: myLatLng,
-                map: map,
-                title: 'Hello World!'
-            });
+
+
+//            var myLatLng = { lat: 12.8391374, lng: 77.6507869 };
+
+//            var map = new google.maps.Map(document.getElementById('map'), {
+//                zoom: 4,
+//                center: myLatLng
+//            });
+
+//            var marker = new google.maps.Marker({
+//                position: myLatLng,
+//                map: map,
+//                title: 'Hello World!'
+//            });
         }
     </script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKWWfOAPBacV4k53da3NwW8NeZdb9c3SM&callback=initMap">
     </script>
+</body>
+</html>
